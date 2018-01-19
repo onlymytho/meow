@@ -2,8 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title></title>
-        <style media="screen">
+        <meta name="viewport" content="initial-scale=1, width=device-width"/>
+        <title>meow</title>
+        <style media="screen" >
             * {
                 font-family: 'Helvetica Neue', arial, serif;
                 color: #444444;
@@ -136,6 +137,27 @@
                 background: #D18FFF;
                 color: white;
             }
+
+
+            @media (max-width: 1024px) {
+                .header .hello p, input {
+                    font-size: 4.5em;
+                }
+                .images {
+                    width: 100%;
+                    margin: 0 auto;
+                }
+                .images .image {
+                    width: 28vw;
+                    height: 28vw;
+                    position: relative;
+                    overflow: hidden;
+                    display: inline-block;
+                    margin-right: 4vw;
+                    margin-bottom: 4vw;
+                }
+            }
+
         </style>
         <script>
           var getJSON = function(url, callback) {
