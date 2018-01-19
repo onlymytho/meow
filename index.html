@@ -16,6 +16,7 @@
                 position: fixed;
                 bottom: 0px;
                 left: 4px;
+                z-index: 101;
             }
             .header {
                 margin: 0 auto;
@@ -219,8 +220,8 @@
                 .more {
                     margin-top: 4vw;
                 }
-                .viewer .content {
-                    height: 80vw;
+                .viewer .content .viewer_item{
+                    display: block;
                 }
                 .viewer .viewer_item#image_div {
                     width: 80vw;
@@ -228,8 +229,8 @@
                 }
                 .viewer .viewer_item#prev button,
                 .viewer .viewer_item#next button {
-                    width: 5vw;
-                    height: 80vw;
+                    width: 80vw;
+                    height: 15vw;
                 }
             }
 
@@ -361,7 +362,7 @@
                      image_div.appendChild( img );
                      img.className = 'imgs'
                      img.id = i
-                     img.src = giphy_data.data[i].images.original.url
+                     img.src = giphy_data.data[i].images.downsized_large.url
                      img.addEventListener('click', show_viewer, false);
                      search_result.push(giphy_data.data[i].images.original.url)
 
