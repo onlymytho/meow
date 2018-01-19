@@ -101,6 +101,7 @@
                 display: inline-block;
                 margin-right: 32px;
                 margin-bottom: 32px;
+                vertical-align: top;
             }
             .images .image:nth-child(3n) {
                 margin-right: 0;
@@ -168,8 +169,6 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                height: 500px;
-                /*width: 700px;*/
             }
             .viewer .viewer_item {
                 display: inline-block;
@@ -208,19 +207,24 @@
                     margin: 0 auto;
                 }
                 .images .image {
-                    width: 28vw;
-                    height: 28vw;
+                    width: 32vw;
+                    height: 32vw;
                     position: relative;
                     overflow: hidden;
                     display: inline-block;
-                    margin-right: 4vw;
-                    margin-bottom: 4vw;
+                    margin-right: 1vw;
+                    margin-bottom: 1vw;
                 }
                 .viewer .content {
                     height: 80vw;
                 }
                 .viewer .viewer_item#image_div {
                     width: 80vw;
+                    height: 80vw;
+                }
+                .viewer .viewer_item#prev button,
+                .viewer .viewer_item#next button {
+                    width: 5vw;
                     height: 80vw;
                 }
             }
