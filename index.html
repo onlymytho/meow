@@ -9,6 +9,9 @@
                 font-family: 'Helvetica Neue', arial, serif;
                 color: #444444;
             }
+            body {
+                margin: 0;
+            }
             .meow_paw_pop {
                 position: fixed;
                 bottom: 0px;
@@ -112,6 +115,7 @@
                 left: -9999px;
                 right: -9999px;
                 margin: auto;
+                cursor: pointer;
             }
 
 
@@ -139,6 +143,62 @@
             }
 
 
+            .viewer {
+                position: fixed;
+                display: none;
+                text-align: center;
+                z-index: 100;
+                top:0;
+                bottom:0;
+                left:0;
+                right:0;
+            }
+            .viewer.on {
+                display: block;
+            }
+            .viewer .bg_layer {
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.9);
+                cursor: zoom-out;
+            }
+            .viewer .content {
+                position: fixed;
+                text-align: center;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                height: 500px;
+                /*width: 700px;*/
+            }
+            .viewer .viewer_item {
+                display: inline-block;
+                vertical-align: top;
+            }
+            .viewer .viewer_item#image_div {
+                width: 500px;
+                height: 500px;
+            }
+            .viewer .viewer_item#image_div img {
+                width: 100%;
+                height: 100%;
+            }
+
+            .viewer .viewer_item#prev button,
+            .viewer .viewer_item#next button {
+                height: 500px;
+                width: 40px;
+                vertical-align: top;
+                background: rgba(0, 0, 0, 0.35);
+                border: none;
+                transition: all ease 0.2s;
+                cursor: pointer;
+                outline: none;
+            }
+            .viewer .viewer_item#prev button:hover,
+            .viewer .viewer_item#next button:hover {
+                background: rgba(0, 0, 0, 0.75);
+            }
             @media (max-width: 1024px) {
                 .header .hello p, input {
                     font-size: 4.5em;
@@ -155,6 +215,13 @@
                     display: inline-block;
                     margin-right: 4vw;
                     margin-bottom: 4vw;
+                }
+                .viewer .content {
+                    height: 80vw;
+                }
+                .viewer .viewer_item#image_div {
+                    width: 80vw;
+                    height: 80vw;
                 }
             }
 
@@ -205,6 +272,21 @@
                 </g>
             </svg>
         </div>
+        <div class="viewer" id="viewer">
+            <a onclick="close_viewer()"><div class="bg_layer"></div> </a>
+            <div class="content">
+                <div class="viewer_item" id="prev">
+                    <button type="button" name="button" onclick="prev_image()"></button>
+                </div>
+                <div class="viewer_item" id="image_div">
+                    <img id="viewer_image" src="" alt="Cutty">
+                </div>
+                <div class="viewer_item" id="next">
+                    <button type="button" name="button" onclick="next_image()"></button>
+                </div>
+            </div>
+        </div>
+
         <div class="header">
             <div class="hello">
                 <p>Meow~, Sanghyuk</p>
@@ -216,7 +298,6 @@
                         <script type="text/javascript">
                             function hover_meow() {
                                 document.getElementById('#Bitmap').classList.toggle('hover')
-                                console.log('meow')
                             }
                             document.getElementById('meow_button').addEventListener("hover", hover_meow, true)
                         </script>
@@ -251,14 +332,16 @@
         <div class="more">
             <button type="button" name="more" onclick="call_giphy()">more meows...</button>
         </div>
-        <script type="text/javascript">
 
+
+
+        <script type="text/javascript">
             // giphy
-            var rand = Math.floor(Math.random() * 500)
-            var offset = 0 + rand
-            var giphy_search = ['cute+cat']
+            var offset = Math.floor(Math.random() * 500)
+            var giphy_search = ['cat']
+            var search_result = []
+            var called_count = 0
             var giphy_callback = function(err, giphy_data) {
-              console.log(giphy_data)
               if (err != null) {
                 console.log('Something went wrong: ' + err);
               }
@@ -269,20 +352,59 @@
                      var img = document.createElement( 'img' );
                      image_div.appendChild( img );
                      img.className = 'imgs'
+                     img.id = i
                      img.src = giphy_data.data[i].images.original.url
+                     img.addEventListener('click', show_viewer, false);
+                     search_result.push(giphy_data.data[i].images.original.url)
 
                      document.getElementsByClassName('images')[0].appendChild(image_div);
                  }
              offset = offset + 9
-                // var rand = Math.floor(Math.random() * 24);
-                // document.getElementsByClassName('images')[0].appendChild
-                // document.getElementsByClassName('imgs')[0].src = giphy_data.data[i].images.original.url
               }
             };
             function call_giphy() {
                 getJSON('https://api.giphy.com/v1/gifs/search?q='+giphy_search[0]+'&api_key=dc6zaTOxFJmzC&limit=9&offset='+offset, giphy_callback);
+                called_count = called_count + 1
             }
             call_giphy()
+
+            // viewer
+            var current_viewer_image = 0;
+
+            function ready_to_call_check() {
+                if (9 * called_count - current_viewer_image  <  3) {
+                    call_giphy()
+                }
+            }
+            function show_viewer(e) {
+                document.getElementById('viewer').classList.add('on');
+                document.getElementById('viewer_image').src = search_result[e.target.id]
+                current_viewer_image = e.target.id
+                ready_to_call_check()
+            };
+            function close_viewer() {
+                document.getElementById('viewer').classList.remove('on');
+            }
+            function next_image() {
+                var next_image = search_result[parseInt(current_viewer_image)+1]
+                if ( !!next_image ) {
+                    document.getElementById('viewer_image').src = next_image
+                    current_viewer_image = parseInt(current_viewer_image) + 1
+                    ready_to_call_check()
+                } else {
+                    call_giphy()
+                    document.getElementById('viewer_image').src = next_image
+                    current_viewer_image = parseInt(current_viewer_image) + 1
+                    ready_to_call_check()
+                }
+            }
+            function prev_image() {
+                var prev_image = search_result[parseInt(current_viewer_image)-1]
+                if ( !!prev_image ) {
+                    document.getElementById('viewer_image').src = prev_image
+                    current_viewer_image = parseInt(current_viewer_image) - 1
+                }
+            }
         </script>
     </body>
 </html>
