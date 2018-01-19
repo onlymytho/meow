@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style media="screen">
+            * {
+                font-family: 'Helvetica Neue', arial, serif;
+                color: #444444;
+            }
+            .header {
+                margin: 0 auto;
+                margin-top: 80px;
+            }
+            .header .hello {
+                margin: 0 auto;
+                text-align: center;
+            }
+            .header .hello p, input {
+                font-size: 72px;
+                text-align: center;
+                font-weight: bold;
+                display: inline-block;
+                margin-bottom: 28px;
+            }
+            .header .hello input {
+                border: none;
+                width: 400px;
+                max-width: 700px;
+                outline: none;
+            }
+            .header .hello input::placeholder{
+                color: #dfdfdf;
+            }
+            .header .meow {
+                margin: 0 auto;
+                text-align: center;
+                margin-bottom: 48px;
+            }
+            .header .meow button {
+                width: 196px;
+                height: 56px;
+                border-radius: 100px;
+                border: 2px solid #D18FFF;
+                font-size: 24px;
+                font-weight: bold;
+                color: #D18FFF;
+                margin: 0 auto;
+                outline: none;
+                cursor: pointer;
+                transition: all ease 0.2s;
+            }
+            .header .meow button:hover {
+                background: #D18FFF;
+                color: white;
+            }
+            .header .meow p {
+                font-weight: bold;
+                font-size: 22px;
+                margin: 28px;
+            }
+            .header .meow span {
+                color: #D18fff;
+            }
+
+
+            .images {
+                width: 964px;
+                margin: 0 auto;
+            }
+            .images .image {
+                width: 300px;
+                height: 300px;
+                position: relative;
+                overflow: hidden;
+                display: inline-block;
+                margin-right: 32px;
+                margin-bottom: 32px;
+            }
+            .images .image:nth-child(3n) {
+                margin-right: 0;
+            }
+            .images .image img {
+                overflow: hidden;
+                position: absolute;
+                top: -9999px;
+                bottom: -9999px;
+                left: -9999px;
+                right: -9999px;
+                margin: auto;
+            }
+        </style>
+        <script>
+          var getJSON = function(url, callback) {
+              var xhr = new XMLHttpRequest();
+              xhr.open('GET', url, true);
+              // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+              // xhr.setRequestHeader('"Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE')
+              xhr.responseType = 'json';
+              xhr.onload = function() {
+                var status = xhr.status;
+                if (status == 200) {
+                  callback(null, xhr.response);
+                } else {
+                  callback(status);
+                }
+              };
+              xhr.send();
+          };
+
+          function numberWithCommas(x) {
+              return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          }
+
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <div class="hello">
+                <p>Meow~, Sanghyuk</p>
+                <!-- <input type="text" name="name" placeholder="Your Name" value=""> -->
+            </div>
+            <div class="meow">
+                <button type="button" name="meow">Meow~</button>
+                <p>Today, <span>2,789,109</span> meowed by <span>281</span> butlers.</p>
+            </div>
+        </div>
+        <div class="images">
+            <!-- Inserted images by script -->
+        </div>
+        <script type="text/javascript">
+
+            // giphy
+            var giphy_search = ['cute+cat']
+            var giphy_callback = function(err, giphy_data) {
+              console.log(giphy_data)
+              if (err != null) {
+                console.log('Something went wrong: ' + err);
+              }
+              else {
+                 for (i=0; i<giphy_data.data.length; i++) {
+                     var image_div = document.createElement( 'div' );
+                     image_div.className = 'image'
+                     var img = document.createElement( 'img' );
+                     image_div.appendChild( img );
+                     img.className = 'imgs'
+                     img.src = giphy_data.data[i].images.original.url
+
+                     document.getElementsByClassName('images')[0].appendChild(image_div);
+                 }
+
+                // var rand = Math.floor(Math.random() * 24);
+                // document.getElementsByClassName('images')[0].appendChild
+                // document.getElementsByClassName('imgs')[0].src = giphy_data.data[i].images.original.url
+              }
+            };
+            // https://s7d1.scene7.com/is/image/PETCO/cat-category-090617-369w-269h-hero-cutout-d?fmt=png-alpha
+            getJSON('http://api.giphy.com/v1/gifs/search?q='+giphy_search[0]+'&api_key=dc6zaTOxFJmzC', giphy_callback);
+
+        </script>
+    </body>
+</html>
