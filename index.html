@@ -368,7 +368,7 @@
                      var img = document.createElement( 'img' );
                      image_div.appendChild( img );
                      img.className = 'imgs'
-                     img.id = i
+                     img.id = search_result.length
                      img.src = giphy_data.data[i].images.downsized_large.url
                      img.addEventListener('click', show_viewer, false);
                      search_result.push(giphy_data.data[i].images.original.url)
