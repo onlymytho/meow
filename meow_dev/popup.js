@@ -139,8 +139,32 @@ function call_images(call_count) {
 }
 
 
+function get_username() {
+    if ( localStorage.getItem("username") ) {
+        document.getElementById('input_username').value = localStorage.getItem("username");
+    }
+}
+function set_username() {
+    var input_username = document.getElementById('input_username').value
+    localStorage.setItem("username", input_username);
+}
+
+function adjust_input_width() {
+    input = document.getElementById('input_username')
+    console.log(input.value + '\t\t\t' + input.style.width)
+    if (input.value){
+        input.style.width = ((input.value.length + 2) * 36) + 'px'
+    } else {'400px'}
+}
+
 //  MAIN
 call_images(6)
+get_username()
+adjust_input_width()
+document.getElementById('input_username').addEventListener("input", function() {
+    set_username();
+    adjust_input_width()
+}, false);
 document.getElementById('more_meows').addEventListener("click", function() { call_images(9); }, false);
 document.getElementById('meow_button').addEventListener("click", function() { meow_counter(); }, false);
 document.getElementById('bg_layer').addEventListener("click", function() { close_viewer(); }, false);
