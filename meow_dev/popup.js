@@ -37,7 +37,7 @@ var instagram_callback = function(err, instagram_data) {
         console.log('Something went wrong: ' + err);
     }
     else {
-        console.log(instagram_data)
+        // console.log(instagram_data)
         after_temp = instagram_data.after
         for (i=0; i<instagram_data.data.length; i++) {
 
@@ -151,7 +151,6 @@ function set_username() {
 
 function adjust_input_width() {
     input = document.getElementById('input_username')
-    console.log(input.value + '\t\t\t' + input.style.width)
     if (input.value){
         input.style.width = ((input.value.length + 2) * 36) + 'px'
     } else {'400px'}
