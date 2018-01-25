@@ -54,7 +54,12 @@ function display_meow_count() {
 
 
     meow_today_count_ref.on('value', function(data) {
-        document.getElementById('meow_count').innerText = data._e.T
+        var d = data._e.T
+        if (d) {
+            document.getElementById('meow_count').innerText = d
+        } else {
+            document.getElementById('meow_count').innerText = 0
+        }
         localStorage.setItem("meow_count", meow_count);
     });
     meow_today_user_hash_ref.on('value', function(data) {
