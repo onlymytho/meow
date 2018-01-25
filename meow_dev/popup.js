@@ -142,7 +142,7 @@ function call_images(call_count) {
 //  MAIN
 call_images(6)
 document.getElementById('more_meows').addEventListener("click", function() { call_images(9); }, false);
-// document.getElementById('meow_button').addEventListener("click", function() { add_count(); }, false);
+document.getElementById('meow_button').addEventListener("click", function() { meow_counter(); }, false);
 document.getElementById('bg_layer').addEventListener("click", function() { close_viewer(); }, false);
 document.getElementById('prev_button').addEventListener("click", function() { prev_image(); }, false);
 document.getElementById('next_button').addEventListener("click", function() { next_image(); }, false);

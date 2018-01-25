@@ -6,17 +6,7 @@
         <title>meow</title>
         <link rel="stylesheet" href="./master.css">
         <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-        <script>
-          // Initialize Firebase
-          var config = {
-            apiKey: "AIzaSyArBjEsYLRUABh5AxbL0sz4tAGi_3nZGTo",
-            authDomain: "meow-56c0c.firebaseapp.com",
-            databaseURL: "https://meow-56c0c.firebaseio.com",
-            projectId: "meow-56c0c",
-            storageBucket: "meow-56c0c.appspot.com",
-            messagingSenderId: "315036560741"
-          };
-          firebase.initializeApp(config);
+        <script src="./firebase.js">
         </script>
     </head>
     <body>
@@ -63,9 +53,9 @@
             </div>
             <div class="meow">
                 <div class="meow_div">
-                    <div id="app">
+                    <!-- <div id="app">
                         <script src="bundle.js"></script>
-                    </div>
+                    </div> -->
                     <button id="meow_button" type="button" name="meow">
                         <?xml version="1.0" encoding="UTF-8"?>
                         <svg width="30px" height="39px" viewBox="0 0 30 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -89,8 +79,7 @@
                         Meow~
                     </button>
                 </div>
-                <p>Today, <span>2,789,109</span> meowed</p>
-                     <!-- by <span>281</span> butlers.</p> -->
+                <p>Today, <span id="meow_count">     </span> meowed by <span>281</span> butlers.</p>
             </div>
         </div>
         <div class="images">
