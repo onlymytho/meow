@@ -11,6 +11,27 @@ body {
     left: 4px;
     z-index: 101;
 }
+.meow_paw_pop #meow_paw_main {
+    cursor: pointer;
+}
+.meow_paw_pop .credit{
+    display: none;
+    color: #797979;
+    position: fixed;
+    font-size: 12px;
+    bottom: 4px;
+    left: 40px;
+}
+.meow_paw_pop .credit.on{
+    display: inline-block;
+}
+.meow_paw_pop .credit a {
+    color: inherit;
+    text-decoration: none;
+}
+.meow_paw_pop .credit a:hover {
+    text-decoration: underline;
+}
 .header {
     margin: 0 auto;
     margin-top: 80px;

@@ -169,3 +169,4 @@ document.getElementById('meow_button').addEventListener("click", function() { me
 document.getElementById('bg_layer').addEventListener("click", function() { close_viewer(); }, false);
 document.getElementById('prev_button').addEventListener("click", function() { prev_image(); }, false);
 document.getElementById('next_button').addEventListener("click", function() { next_image(); }, false);
+document.getElementById('meow_paw_main').addEventListener("click", function() { console.log('paw'); document.getElementsByClassName('credit')[0].classList.toggle('on') }, false);
