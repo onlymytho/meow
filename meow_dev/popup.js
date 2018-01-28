@@ -50,7 +50,7 @@ var instagram_callback = function(err, instagram_data) {
             img.src = instagram_data.data[i].image_url
             img.id = search_result.length
             document.getElementsByClassName('images')[0].appendChild(image_div);
-
+            image_div.classList.add('visible')
             // Put image items into search_result
             search_result.push(instagram_data.data[i].image_url)
 
@@ -151,9 +151,9 @@ function set_username() {
 
 function adjust_input_width() {
     input = document.getElementById('input_username')
-    if (input.value){
-        input.style.width = ((input.value.length + 2) * 36) + 'px'
-    } else {'400px'}
+    // if (input.value){
+    //     input.style.width = ((input.value.length + 2) * 24) + 'px'
+    // } else {'400px'}
 }
 
 //  MAIN

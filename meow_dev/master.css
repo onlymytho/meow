@@ -1,6 +1,6 @@
 * {
-    font-family: 'Helvetica Neue', arial, serif;
-    color: #444444;
+    font-family: 'Helvetica', arial, serif;
+    color: #3D4345;
 }
 body {
     margin: 0;
@@ -32,85 +32,129 @@ body {
 .meow_paw_pop .credit a:hover {
     text-decoration: underline;
 }
+
+.top_navi {
+    height: 64px;
+    border-bottom: 1px solid #EBEBEB;
+}
+
+
 .header {
+    width: 924px;
     margin: 0 auto;
     margin-top: 80px;
+    margin-bottom: 24px;
 }
+.header .left, .right {
+    display: inline-block;
+}
+.header .right {
+    float: right;
+}
+.header .datetime {
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+.header .datetime .time {
+    display: inline-block;
+    font-size: 32px;
+}
+.header .datetime .date {
+    display: inline-block;
+    font-size: 18px;
+    vertical-align: bottom;
+    color: #9b9b9b;
+    margin-left: 12px;
+}
+
 .header .hello {
-    margin: 0 auto;
-    text-align: center;
+    display: inline-block;
 }
 .header .hello p {
     cursor: default;
 }
 .header .hello p, input {
-    font-size: 72px;
-    text-align: center;
-    font-weight: bold;
+    font-size: 48px;
+    font-weight: 300;
     display: inline-block;
-    margin-bottom: 28px;
+    margin: 0;
 }
 .header .hello input {
     border: none;
-    width: 400px;
-    max-width: 700px;
+    max-width: 360px;
     outline: none;
-    text-align: left;
 }
 .header .hello input::placeholder{
     color: #dfdfdf;
 }
+
 .header .meow {
-    margin: 0 auto;
-    text-align: center;
-    margin-bottom: 48px;
+    display: inline-block;
+    line-height: 104px;
 }
-.header .meow .meow_div {
-    position: relative;
+.header .meow .meow_button_div {
+    display: inline-block;
+    vertical-align: bottom;
+    line-height: normal;
 }
-.header .meow .meow_div button {
+.header .meow .meow_button_div button {
     position: relative;
-    width: 196px;
-    height: 56px;
+    width: 76px;
+    height: 76px;
     border-radius: 100px;
-    border: 2px solid #D18FFF;
-    font-size: 24px;
-    font-weight: bold;
-    color: #D18FFF;
-    margin: 0 auto;
+    border: 1px solid #EFEFEF;
+    font-size: 14px;
+    font-weight: 300;
+    color: #9b9b9b;
     outline: none;
     cursor: pointer;
     transition: all ease 0.2s;
     overflow: hidden;
-    padding-left: 36px;
+    padding-top: 32px;
+    vertical-align: bottom;
+    box-shadow: 0px 2px 16px 0 rgba(275, 44, 100, 0.1);
 }
-.header .meow .meow_div button:hover {
+.header .meow .meow_button_div button:hover {
+    box-shadow: 0px 4px 48px -4px rgba(275, 44, 100, 0.2);
+}
+.header .meow .meow_button_div button:active {
     background: #D18FFF;
     color: white;
+    box-shadow: 0px 2px 16px 0 rgba(275, 44, 100, 0.1);
 }
-.header .meow .meow_div button svg {
+.header .meow .meow_button_div button svg {
     position: absolute;
-    left: 28px;
-    bottom: -2px;
+    left: 22px;
+    top: 10px;
+    transform: scale(0.7);
 }
-.header .meow .meow_div button svg #Bitmap {
+.header .meow .meow_button_div button svg #Bitmap {
     transition: all ease 0.2s;
+    stroke: #9b9b9b;
 }
-.header .meow .meow_div button:hover svg #Bitmap{
+.header .meow .meow_button_div button:active svg #Bitmap{
     stroke: white;
 }
-.header .meow p {
-    font-weight: bold;
-    font-size: 22px;
-    margin: 28px;
+.header .meow .meow_count_text {
+    display: inline-block;
+    vertical-align: bottom;
+    line-height: normal;
 }
-.header .meow span {
-    color: #D18fff;
+.header .meow .meow_count_text p {
+    font-size: 18px;
+    font-weight: 300;
+    color: #9B9B9B;
+    margin: 0;
+    margin-right: 16px;
+    vertical-align: bottom;
+}
+.header .meow .meow_count_text span {
+    /*color: #D18fff;*/
 }
 
 
 .images {
-    width: 964px;
+    width: 924px;
     margin: 0 auto;
 }
 .images .image {
@@ -119,8 +163,8 @@ body {
     position: relative;
     overflow: hidden;
     display: inline-block;
-    margin-right: 32px;
-    margin-bottom: 32px;
+    margin-right: 12px;
+    margin-bottom: 24px;
     vertical-align: top;
 }
 .images .image:nth-child(3n) {
@@ -137,6 +181,9 @@ body {
     right: -9999px;
     margin: auto;
     cursor: pointer;
+}
+.images .image img:hover {
+
 }
 
 
