@@ -257,7 +257,6 @@ document.getElementById('input_username').addEventListener("input", function() {
 document.getElementById('upload').addEventListener("click", function() { open_survey('upload'); }, false);
 document.getElementById('feedback').addEventListener("click", function() { open_survey('feedback'); }, false);
 document.getElementById('more_meows').addEventListener("click", function() { call_images(9); }, false);
-document.getElementById('more_meows').addEventListener("click", function() { call_images(9); }, false);
 document.getElementById('meow_button').addEventListener("click", function() { meow_counter(); meow_button_tweak();}, false);
 document.getElementById('bg_layer').addEventListener("click", function() { viewer.close_viewer(); }, false);
 document.getElementById('prev_button').addEventListener("click", function() { viewer.prev_image(); }, false);
