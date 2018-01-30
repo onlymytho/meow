@@ -44,45 +44,18 @@ var instagram_callback = function(err, instagram_data) {
             // create image elements
             var image_div = document.createElement( 'div' );
             image_div.className = 'image'
-
             var img = document.createElement( 'img' );
             image_div.appendChild( img );
             img.className = 'imgs'
             img.src = instagram_data.data[i].image_url
             img.id = search_result.length
-
-            var label_div = document.createElement( 'div' );
-            image_div.appendChild( label_div );
-            label_div.className = 'label_div'
-            label_div.id = 'label_div' + search_result.length
-            var profile_img_div = document.createElement( 'div' );
-            var profile_img = document.createElement( 'img' );
-            var alias_a = document.createElement ('a' );
-            var alias = document.createElement( 'p' );
-            label_div.appendChild(profile_img_div);
-            profile_img_div.appendChild(profile_img);
-            label_div.appendChild(alias_a);
-            alias_a.appendChild(alias);
-            alias_a.href = 'https://www.instagram.com/' + instagram_data.data[i].username
-            alias_a.target = '_blank'
-            profile_img_div.className = 'profile_img_div'
-            profile_img.className = 'profile_img'
-            alias.className = 'alias'
-            profile_img.src = instagram_data.data[i].profile_url
-            alias.innerText = instagram_data.data[i].username
-
-
             document.getElementsByClassName('images')[0].appendChild(image_div);
             image_div.classList.add('visible')
-
-
             // Put image items into search_result
             search_result.push(instagram_data.data[i].image_url)
 
             // add actions
             img.addEventListener('click', show_viewer, false);
-            image_div.addEventListener('mouseover', toggle_label, false)
-            image_div.addEventListener('mouseout', toggle_label, false)
         }
     }
 }
@@ -120,18 +93,6 @@ var instagram_callback = function(err, instagram_data) {
 //   }
 // };
 
-
-// image label
-function toggle_label(e) {
-    if (['label_div', 'alias', 'profile_img'].indexOf(e.target.className) === -1 ){
-        if (e.type == 'mouseover') {
-            document.getElementById('label_div'+e.target.id).classList.add('on')
-        } else if (e.type == 'mouseout') {
-            document.getElementById('label_div'+e.target.id).classList.remove('on')
-        }
-    }
-    // image_div를 hover하거나 클릭했을 떄 해당 이미지에 대한 id가 얻어지도록 하는 구조로 바꾸면 모든 게 아름답게 해결됨.
-}
 
 
 // viewer
@@ -215,31 +176,16 @@ function get_currenttime() {
     document.getElementById('time').innerText = time;
     document.getElementById('date').innerText = date;
 }
-function open_survey(type) {
-    if (type=='upload') {
-        document.getElementById('survey_upload').classList.toggle('on')
-        document.querySelector('#upload li').classList.toggle('on')
-    } else if (type=='feedback') {
-        document.getElementById('survey_feedback').classList.toggle('on')
-        document.querySelector('#feedback li').classList.toggle('on')
-    }
-}
-
-
 
 //  MAIN
 call_images(6)
 get_username()
 adjust_input_width()
 get_currenttime()
-setInterval(get_currenttime, 1000);
 document.getElementById('input_username').addEventListener("input", function() {
     set_username();
     adjust_input_width()
 }, false);
-document.getElementById('upload').addEventListener("click", function() { open_survey('upload'); }, false);
-document.getElementById('feedback').addEventListener("click", function() { open_survey('feedback'); }, false);
-document.getElementById('more_meows').addEventListener("click", function() { call_images(9); }, false);
 document.getElementById('more_meows').addEventListener("click", function() { call_images(9); }, false);
 document.getElementById('meow_button').addEventListener("click", function() { meow_counter(); }, false);
 document.getElementById('bg_layer').addEventListener("click", function() { close_viewer(); }, false);
