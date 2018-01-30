@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="./master.css">
         <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
         <script src="./firebase.js"></script>
+        <script src="https://use.fontawesome.com/1f435e071d.js"></script>
     </head>
     <body>
         <div class="meow_paw_pop">
@@ -51,7 +52,16 @@
         </div>
 
         <div class="top_navi">
-
+            <ul>
+                <a href="#" id="upload"><li><i class="fa fa-cloud-upload"></i><strong>Upload</strong></li></a>
+                <a href="#" id="feedback"><li><i class="fa fa-edit"></i>Feedback</li></a>
+            </ul>
+            <div id="survey_upload" class="survey">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeRRrZ6ROddXAAXLsFznG7e3yPIDDMBIDL4lvfrvQCs1efFxA/viewform?embedded=true" width="480" height="400" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+            </div>
+            <div id="survey_feedback" class="survey">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe8dUvxrm4j6CbAW864ezuuf3AWg3jyyExp2HTo994370O7CQ/viewform?embedded=true" width="480" height="400" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+            </div>
         </div>
         <div class="header">
             <div class="left">
