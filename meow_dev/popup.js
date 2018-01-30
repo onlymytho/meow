@@ -233,10 +233,18 @@ function open_survey(type) {
         document.querySelector('#feedback li').classList.toggle('on')
     }
 }
-
+function meow_button_tweak() {
+    meow_button_count += 1
+    if ([3,7,12,19,27,32,41,57,71,83,97,117,131,177,201].indexOf(meow_button_count) !== -1) {
+        meow_aud = new Audio('https://www.google.com/logos/fnbx/animal_sounds/cat.mp3')
+        meow_aud.volume = 0.1;
+        meow_aud.play()
+    }
+}
 
 
 //  MAIN
+meow_button_count = 0
 call_images(6)
 get_username()
 adjust_input_width()
@@ -250,7 +258,7 @@ document.getElementById('upload').addEventListener("click", function() { open_su
 document.getElementById('feedback').addEventListener("click", function() { open_survey('feedback'); }, false);
 document.getElementById('more_meows').addEventListener("click", function() { call_images(9); }, false);
 document.getElementById('more_meows').addEventListener("click", function() { call_images(9); }, false);
-document.getElementById('meow_button').addEventListener("click", function() { meow_counter(); }, false);
+document.getElementById('meow_button').addEventListener("click", function() { meow_counter(); meow_button_tweak();}, false);
 document.getElementById('bg_layer').addEventListener("click", function() { viewer.close_viewer(); }, false);
 document.getElementById('prev_button').addEventListener("click", function() { viewer.prev_image(); }, false);
 document.getElementById('next_button').addEventListener("click", function() { viewer.next_image(); }, false);
