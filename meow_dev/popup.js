@@ -56,9 +56,12 @@ var instagram_callback = function(err, instagram_data) {
             label_div.className = 'label_div'
             label_div.id = 'label_div' + search_result.length
             var profile_img_div = document.createElement( 'div' );
+            profile_img_div.id = 'profile_img_div' + search_result.length
             var profile_img = document.createElement( 'img' );
+            profile_img.id = 'profile_img' + search_result.length
             var alias_a = document.createElement ('a' );
             var alias = document.createElement( 'p' );
+            alias.id = 'alias' + search_result.length
             label_div.appendChild(profile_img_div);
             profile_img_div.appendChild(profile_img);
             label_div.appendChild(alias_a);
@@ -80,9 +83,11 @@ var instagram_callback = function(err, instagram_data) {
             search_result.push(instagram_data.data[i].image_url)
 
             // add actions
-            img.addEventListener('click', show_viewer, false);
-            image_div.addEventListener('mouseover', toggle_label, false)
-            image_div.addEventListener('mouseout', toggle_label, false)
+            img.addEventListener('click', viewer.show_viewer, false);
+            img.addEventListener('mouseover', toggle_label, false)
+            img.addEventListener('mouseout', toggle_label, false)
+            label_div.addEventListener('mouseover', toggle_label, false)
+            label_div.addEventListener('mouseout', toggle_label, false)
         }
     }
 }
@@ -123,52 +128,56 @@ var instagram_callback = function(err, instagram_data) {
 
 // image label
 function toggle_label(e) {
-    if (['label_div', 'alias', 'profile_img'].indexOf(e.target.className) === -1 ){
+    if (['image', 'imgs', 'label_div', 'label_div on', 'alias', 'profile_img'].indexOf(e.target.className) !== -1) {
         if (e.type == 'mouseover') {
-            document.getElementById('label_div'+e.target.id).classList.add('on')
+            document.getElementById('label_div'+e.target.id.slice(-1)).classList.add('on')
         } else if (e.type == 'mouseout') {
-            document.getElementById('label_div'+e.target.id).classList.remove('on')
+            document.getElementById('label_div'+e.target.id.slice(-1)).classList.remove('on')
         }
     }
-    // image_div를 hover하거나 클릭했을 떄 해당 이미지에 대한 id가 얻어지도록 하는 구조로 바꾸면 모든 게 아름답게 해결됨.
 }
 
 
 // viewer
-var current_viewer_image = 0;
+function Viewer() {
+    var current_viewer_image = 0;
+}
+Viewer.prototype = {
+    show_viewer: function(e) {
+        document.getElementById('viewer').classList.add('on');
+        document.getElementById('viewer_image').src = search_result[e.target.id]
+        current_viewer_image = e.target.id
+        ready_to_call_check()
+    },
+    close_viewer: function() {
+        document.getElementById('viewer').classList.remove('on');
+    },
+    next_image: function() {
+        var next_image = search_result[parseInt(current_viewer_image)+1]
+        if ( !!next_image ) {
+            document.getElementById('viewer_image').src = next_image
+            current_viewer_image = parseInt(current_viewer_image) + 1
+            ready_to_call_check()
+        } else {
+            call_images()
+            document.getElementById('viewer_image').src = next_image
+            current_viewer_image = parseInt(current_viewer_image) + 1
+            ready_to_call_check()
+        }
+    },
+    prev_image: function() {
+        var prev_image = search_result[parseInt(current_viewer_image)-1]
+        if ( !!prev_image ) {
+            document.getElementById('viewer_image').src = prev_image
+            current_viewer_image = parseInt(current_viewer_image) - 1
+        }
+    },
+}
+var viewer = new Viewer();
 
 function ready_to_call_check() {
     if (9 * called_count - current_viewer_image  <  3) {
         call_images(9)
-    }
-}
-function show_viewer(e) {
-    document.getElementById('viewer').classList.add('on');
-    document.getElementById('viewer_image').src = search_result[e.target.id]
-    current_viewer_image = e.target.id
-    ready_to_call_check()
-};
-function close_viewer() {
-    document.getElementById('viewer').classList.remove('on');
-}
-function next_image() {
-    var next_image = search_result[parseInt(current_viewer_image)+1]
-    if ( !!next_image ) {
-        document.getElementById('viewer_image').src = next_image
-        current_viewer_image = parseInt(current_viewer_image) + 1
-        ready_to_call_check()
-    } else {
-        call_images()
-        document.getElementById('viewer_image').src = next_image
-        current_viewer_image = parseInt(current_viewer_image) + 1
-        ready_to_call_check()
-    }
-}
-function prev_image() {
-    var prev_image = search_result[parseInt(current_viewer_image)-1]
-    if ( !!prev_image ) {
-        document.getElementById('viewer_image').src = prev_image
-        current_viewer_image = parseInt(current_viewer_image) - 1
     }
 }
 
@@ -242,7 +251,7 @@ document.getElementById('feedback').addEventListener("click", function() { open_
 document.getElementById('more_meows').addEventListener("click", function() { call_images(9); }, false);
 document.getElementById('more_meows').addEventListener("click", function() { call_images(9); }, false);
 document.getElementById('meow_button').addEventListener("click", function() { meow_counter(); }, false);
-document.getElementById('bg_layer').addEventListener("click", function() { close_viewer(); }, false);
-document.getElementById('prev_button').addEventListener("click", function() { prev_image(); }, false);
-document.getElementById('next_button').addEventListener("click", function() { next_image(); }, false);
+document.getElementById('bg_layer').addEventListener("click", function() { viewer.close_viewer(); }, false);
+document.getElementById('prev_button').addEventListener("click", function() { viewer.prev_image(); }, false);
+document.getElementById('next_button').addEventListener("click", function() { viewer.next_image(); }, false);
 document.getElementById('meow_paw_main').addEventListener("click", function() { console.log('paw'); document.getElementsByClassName('credit')[0].classList.toggle('on') }, false);
