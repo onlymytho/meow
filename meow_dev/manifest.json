@@ -3,7 +3,7 @@
 
     "name": "Meow",
     "description" : "Cat Mania's Chrome New Tab Application",
-    "version": "v4",
+    "version": "4",
     "content_security_policy": "script-src 'self' https://cdn.firebase.com https://*.firebaseio.com https://www.gstatic.com/ https://www.googleapis.com https://*.firebaseio-demo.com https://use.fontawesome.com; object-src 'self'",
 
     "permissions" : [
