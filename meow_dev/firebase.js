@@ -44,7 +44,21 @@ function meow_counter() {
         }
     });
     display_meow_count()
-    meow_today_user_ref.update({ [encodeemail(localStorage.email)]: 1 });
+    meow_today_user_email_ref = firebase.database().ref('meow-today/' + CurrentDate() + '/user_email/' + encodeemail(localStorage.email))
+
+    meow_today_user_email_ref.transaction(function(count){
+        if (count === null) {
+            // the counter doesn't exist yet, start at one
+            return 1;
+        } else if (typeof count === 'number') {
+            // increment - the normal case
+            return count + 1;
+        } else {
+            // we can't increment non-numeric counts
+            console.log('The counter has a non-numeric count: ' + count)
+            // letting the callback return undefined cancels the transaction
+        }
+    })
 }
 
 function display_meow_count() {
