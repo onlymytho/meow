@@ -27,7 +27,7 @@ function CurrentDate() {
 }
 
 meow_today_count_ref = firebase.database().ref('meow-today/' + CurrentDate() + '/count')
-meow_today_user_hash_ref = firebase.database().ref('meow-today/' + CurrentDate() + '/user_hash/')
+meow_today_user_ref = firebase.database().ref('meow-today/' + CurrentDate() + '/user_email/')
 
 function meow_counter() {
     meow_today_count_ref.transaction(function(count){
@@ -44,15 +44,11 @@ function meow_counter() {
         }
     });
     display_meow_count()
-    var hash = fingerprinting()
-    meow_today_user_hash_ref.update({ [hash]: 1 });
-
+    meow_today_user_ref.update({ [encodeemail(localStorage.email)]: 1 });
 }
 
 function display_meow_count() {
     // ref: https://firebase.google.com/docs/database/web/retrieve-data
-
-
     meow_today_count_ref.on('value', function(data) {
         var d = data._e.T
         if (d) {
@@ -62,40 +58,18 @@ function display_meow_count() {
         }
         localStorage.setItem("meow_count", meow_count);
     });
-    meow_today_user_hash_ref.on('value', function(data) {
+    meow_today_user_ref.on('value', function(data) {
         document.getElementById('butlers_count').innerText = data.numChildren()
         localStorage.setItem("butlers_count", butlers_count);
     });
 }
 
-function fingerprinting() {
-    var canvas = document.createElement('canvas');
-    var ctx = canvas.getContext('2d');
-    var txt = "BrowserLeaks,com <canvas> 1.0";
-    ctx.textBaseline = "top";
-    ctx.font = "14px 'Arial'";
-    ctx.textBaseline = "alphabetic";
-    ctx.fillStyle = "#f60";
-    ctx.fillRect(125,1,62,20);
-    ctx.fillStyle = "#069";
-    ctx.fillText(txt, 2, 15);
-    ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
-    ctx.fillText(txt, 4, 17);
-    var strng=canvas.toDataURL();
 
-    var hash=0;
-    if (strng.length==0) return 'nothing!';
-    for (i = 0; i < strng.length; i++) {
-		char = strng.charCodeAt(i);
-		hash = ((hash<<5)-hash)+char;
-		hash = hash & hash;
-	}
-	return hash;
+function encodeemail(str) {
+    return str.replace('.', '__dot__');
 }
-
 function initializeData(){
     display_meow_count()
-    fingerprinting()
 }
 
 
