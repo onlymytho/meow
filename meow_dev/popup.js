@@ -233,33 +233,135 @@ function open_survey(type) {
         document.querySelector('#feedback li').classList.toggle('on')
     }
 }
-function meow_button_tweak() {
-    meow_button_count += 1
-    if ([3,7,12,19,27,32,41,57,71,83,97,117,131,177,201].indexOf(meow_button_count) !== -1) {
-        meow_aud = new Audio('https://www.google.com/logos/fnbx/animal_sounds/cat.mp3')
-        meow_aud.volume = 0.1;
-        meow_aud.play()
+function MeowButtonTweak() {}
+MeowButtonTweak.prototype = {
+    sound: function() {
+        meow_button_count += 1
+        if ([3,7,12,19,27,32,41,57,71,83,97,117,131,177,201].indexOf(meow_button_count) !== -1) {
+            meow_aud = new Audio('https://www.google.com/logos/fnbx/animal_sounds/cat.mp3')
+            meow_aud.volume = 0.1;
+            meow_aud.play()
+        }
+    },
+    red_count: function() {
+        meow_count = document.getElementById('meow_count')
+        meow_divd_hundred = meow_count.innerText%100
+        if (meow_divd_hundred >= 90 || meow_divd_hundred==0) {
+            meow_count.style.color = 'rgba(' + parseInt((meow_divd_hundred-100)*25+255) + ', 0, 0, 1)'
+        } else {
+            meow_count.style.color = ''
+        }
     }
 }
+var meowbuttontweak = new MeowButtonTweak();
+
+function display_initiation() {
+    // WARNING:: In case you want to delete email in localStorage
+    // localStorage.removeItem('email')
+
+    if (!localStorage.email) {
+        document.getElementById('initiation').style.display = 'block'
+    } else {
+        console.log('Registered: '+localStorage.email)
+    }
+}
+
+function user_register(boolean) {
+    let email = document.getElementById('register_email')
+    let password = document.getElementById('register_pw')
+    let confirm_password = document.getElementById('register_pw_confirmation')
+
+    if (boolean == false) {
+        // Reset(disable) customvalidity messeges.
+        email.setCustomValidity("")
+        password.setCustomValidity("")
+        confirm_password.setCustomValidity("")
+    } else if (boolean == true){
+        console.log('start to register')
+        // validate register form
+        if (!email.value  ||  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value) == false ) {
+            // Uninputed email or invalid
+            email.setCustomValidity("Please enter an valid email address")
+        } else if (!password.value  ||  /^[a-zA-Z0-9]{6,16}$/.test(password.value) == false) {
+            // Uninputed password or invalid password. Password should mix characters and number. And it should be 6~16 chars.
+            password.setCustomValidity("Please enter an password between 6 ~ 16 characters")
+        } else if (!confirm_password.value  ||  password.value != confirm_password.value) {
+            // Uninputed password confirmation or password and confirmation don't match.
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            // Reset(disable) customvalidity messeges.
+            email.setCustomValidity("")
+            password.setCustomValidity("")
+            confirm_password.setCustomValidity("")
+
+            // At first, try to sign in
+            firebase.auth().signInWithEmailAndPassword(email.value, password.value)
+                .then(function() {
+                    // Email login is succeeded
+                    localStorage.setItem("email", email.value); // Just to convince storing email on cache
+                    window.location.reload()
+                })
+                .catch(function(error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    if (errorCode === 'auth/user-not-found') {
+
+                        // if there's no user in db, create user account to firebase
+                        firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
+                            .then(
+                                function() {
+                                    // store email into localStorage when creation is succeeded
+                                    localStorage.setItem("email", email.value);
+                                    window.location.reload()
+                                }
+                            )
+                            .catch(function(error) {
+                                // Handle Errors here.
+                                var errorCode = error.code;
+                                var errorMessage = error.message;
+                                if (errorCode === 'auth/operation-not-allowed') {
+                                    console.log('Operation is not allowed. Ask to administrator.')
+                            }
+                        });
+                    } else if (errorCode === 'auth/wrong-password') {
+                        // Registered email, but wrong password
+                        alert('Already registered email. Please enter the correct password.')
+                    }
+                })
+        }
+    }
+}
+function addEventListener() {
+    document.getElementById('input_username').addEventListener("input", function() {
+        set_username();
+        adjust_input_width()
+    }, false);
+    // referenced https://stackoverflow.com/a/29152483 to add stopImmediatePropagation()
+    document.getElementById('upload').addEventListener("click", function(event) { event.stopImmediatePropagation(); open_survey('upload'); }, false);
+    document.getElementById('feedback').addEventListener("click", function(event) { event.stopImmediatePropagation(); open_survey('feedback'); }, false);
+    document.getElementById('start_form').addEventListener("submit", function(e) { e.preventDefault(); }, false);
+    document.getElementById('start_button').addEventListener('click', function() {user_register(true); }, false);
+    document.getElementById('register_email').addEventListener('input', function() {user_register(false); }, false);
+    document.getElementById('register_pw').addEventListener('input', function() {user_register(false); }, false);
+    document.getElementById('register_pw_confirmation').addEventListener('input', function() {user_register(false); }, false);
+    document.getElementById('more_meows').addEventListener("click", function(event) { event.stopImmediatePropagation(); call_images(9); }, false);
+    document.getElementById('meow_button').addEventListener("click", function(event) { event.stopImmediatePropagation(); meow_counter(); meowbuttontweak.sound(); meowbuttontweak.red_count();}, false);
+    document.getElementById('bg_layer').addEventListener("click", function(event) { event.stopImmediatePropagation(); viewer.close_viewer(); }, false);
+    document.getElementById('prev_button').addEventListener("click", function(event) { event.stopImmediatePropagation(); viewer.prev_image(); }, false);
+    document.getElementById('next_button').addEventListener("click", function(event) { event.stopImmediatePropagation(); viewer.next_image(); }, false);
+    document.getElementById('meow_paw_main').addEventListener("click", function(event) { event.stopImmediatePropagation(); console.log('paw');
+    document.getElementsByClassName('credit')[0].classList.toggle('on') }, false);
+}
+
 
 
 //  MAIN
 meow_button_count = 0
+display_initiation()
 call_images(6)
 get_username()
 adjust_input_width()
 get_currenttime()
 setInterval(get_currenttime, 1000);
-document.getElementById('input_username').addEventListener("input", function() {
-    set_username();
-    adjust_input_width()
-}, false);
-document.getElementById('upload').addEventListener("click", function() { open_survey('upload'); }, false);
-document.getElementById('feedback').addEventListener("click", function() { open_survey('feedback'); }, false);
-document.getElementById('more_meows').addEventListener("click", function() { call_images(9); }, false);
-document.getElementById('more_meows').addEventListener("click", function() { call_images(9); }, false);
-document.getElementById('meow_button').addEventListener("click", function() { meow_counter(); meow_button_tweak();}, false);
-document.getElementById('bg_layer').addEventListener("click", function() { viewer.close_viewer(); }, false);
-document.getElementById('prev_button').addEventListener("click", function() { viewer.prev_image(); }, false);
-document.getElementById('next_button').addEventListener("click", function() { viewer.next_image(); }, false);
-document.getElementById('meow_paw_main').addEventListener("click", function() { console.log('paw'); document.getElementsByClassName('credit')[0].classList.toggle('on') }, false);
+addEventListener();

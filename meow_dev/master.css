@@ -185,14 +185,61 @@ body {
     margin-right: 16px;
     vertical-align: bottom;
 }
-.header .meow .meow_count_text span {
-    /*color: #D18fff;*/
+.header .meow .meow_count_text span#meow_count {
+    position: relative
 }
-
+.header .meow .meow_count_text span#meow_count::before {
+    content: 'Zinx!';
+    position: absolute;
+    top: -24px;
+    left: 0;
+    color: #d18fff;
+    font-weight: bold;
+    opacity: 0;
+}
+.header .meow .meow_count_text span#meow_count::before.on {
+    opacity: 1;
+}
 
 .images {
     width: 924px;
     margin: 0 auto;
+}
+.initiation {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 200;
+    text-align: center;
+    background-color: white;
+}
+.initiation .start_form_div {
+    position: absolute;
+    top: 30px;
+    left: 0; right: 0;
+}
+.initiation form input, button{
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    margin-top: 36px;
+    width: 360px;
+}
+.initiation form input{
+    background-color: rgba(0,0,0,0);
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #bdbdbd;
+    font-size: 24px;
+}
+.initiation form input::placeholder{
+    color: #bdbdbd;
+}
+.initiation form button{
+    font-size: 16px;
+    line-height: 64px;
+    border-radius: 50px;
 }
 .images .image {
     width: 300px;
