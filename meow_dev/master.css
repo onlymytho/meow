@@ -185,10 +185,21 @@ body {
     margin-right: 16px;
     vertical-align: bottom;
 }
-.header .meow .meow_count_text span {
-    /*color: #D18fff;*/
+.header .meow .meow_count_text span#meow_count {
+    position: relative
 }
-
+.header .meow .meow_count_text span#meow_count::before {
+    content: 'Zinx!';
+    position: absolute;
+    top: -24px;
+    left: 0;
+    color: #d18fff;
+    font-weight: bold;
+    opacity: 0;
+}
+.header .meow .meow_count_text span#meow_count::before.on {
+    opacity: 1;
+}
 
 .images {
     width: 924px;

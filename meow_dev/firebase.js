@@ -53,6 +53,7 @@ function display_meow_count() {
         var d = data._e.T
         if (d) {
             document.getElementById('meow_count').innerText = d
+            meowbuttontweak.red_count()
         } else {
             document.getElementById('meow_count').innerText = 0
         }

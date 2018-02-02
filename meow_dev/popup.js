@@ -233,14 +233,28 @@ function open_survey(type) {
         document.querySelector('#feedback li').classList.toggle('on')
     }
 }
-function meow_button_tweak() {
-    meow_button_count += 1
-    if ([3,7,12,19,27,32,41,57,71,83,97,117,131,177,201].indexOf(meow_button_count) !== -1) {
-        meow_aud = new Audio('https://www.google.com/logos/fnbx/animal_sounds/cat.mp3')
-        meow_aud.volume = 0.1;
-        meow_aud.play()
+function MeowButtonTweak() {}
+MeowButtonTweak.prototype = {
+    sound: function() {
+        meow_button_count += 1
+        if ([3,7,12,19,27,32,41,57,71,83,97,117,131,177,201].indexOf(meow_button_count) !== -1) {
+            meow_aud = new Audio('https://www.google.com/logos/fnbx/animal_sounds/cat.mp3')
+            meow_aud.volume = 0.1;
+            meow_aud.play()
+        }
+    },
+    red_count: function() {
+        meow_count = document.getElementById('meow_count')
+        meow_divd_hundred = meow_count.innerText%100
+        if (meow_divd_hundred >= 90 || meow_divd_hundred==0) {
+            meow_count.style.color = 'rgba(' + parseInt((meow_divd_hundred-100)*25+255) + ', 0, 0, 1)'
+        } else {
+            meow_count.style.color = ''
+        }
     }
 }
+var meowbuttontweak = new MeowButtonTweak();
+
 function display_initiation() {
     // WARNING:: In case you want to delete email in localStorage
     // localStorage.removeItem('email')
@@ -251,6 +265,7 @@ function display_initiation() {
         console.log('Registered: '+localStorage.email)
     }
 }
+
 function user_register(boolean) {
     let email = document.getElementById('register_email')
     let password = document.getElementById('register_pw')
@@ -331,7 +346,7 @@ function addEventListener() {
     document.getElementById('register_pw').addEventListener('input', function() {user_register(false); }, false);
     document.getElementById('register_pw_confirmation').addEventListener('input', function() {user_register(false); }, false);
     document.getElementById('more_meows').addEventListener("click", function(event) { event.stopImmediatePropagation(); call_images(9); }, false);
-    document.getElementById('meow_button').addEventListener("click", function(event) { event.stopImmediatePropagation(); meow_counter(); meow_button_tweak();}, false);
+    document.getElementById('meow_button').addEventListener("click", function(event) { event.stopImmediatePropagation(); meow_counter(); meowbuttontweak.sound(); meowbuttontweak.red_count();}, false);
     document.getElementById('bg_layer').addEventListener("click", function(event) { event.stopImmediatePropagation(); viewer.close_viewer(); }, false);
     document.getElementById('prev_button').addEventListener("click", function(event) { event.stopImmediatePropagation(); viewer.prev_image(); }, false);
     document.getElementById('next_button').addEventListener("click", function(event) { event.stopImmediatePropagation(); viewer.next_image(); }, false);
@@ -349,4 +364,4 @@ get_username()
 adjust_input_width()
 get_currenttime()
 setInterval(get_currenttime, 1000);
-addEventListener()
+addEventListener();
