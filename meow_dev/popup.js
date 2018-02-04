@@ -130,9 +130,9 @@ var instagram_callback = function(err, instagram_data) {
 function toggle_label(e) {
     if (['image', 'imgs', 'label_div', 'label_div on', 'alias', 'profile_img'].indexOf(e.target.className) !== -1) {
         if (e.type == 'mouseover') {
-            document.getElementById('label_div'+e.target.id.slice(-1)).classList.add('on')
+            document.getElementById('label_div'+e.target.id.match(/\d/g).join("")).classList.add('on')
         } else if (e.type == 'mouseout') {
-            document.getElementById('label_div'+e.target.id.slice(-1)).classList.remove('on')
+            document.getElementById('label_div'+e.target.id.match(/\d/g).join("")).classList.remove('on')
         }
     }
 }
