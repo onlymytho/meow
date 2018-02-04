@@ -116,7 +116,7 @@ var instagram_callback = function(err, instagram_data) {
 //          img.className = 'imgs'
 //          img.id = search_result.length
 //          img.src = giphy_data.data[i].images.downsized_large.url
-//          img.addEventListener('click', show_viewer, false);
+//          img.addEventListener('click', viewer.show_viewer, false);
 //          search_result.push(giphy_data.data[i].images.original.url)
 //
 //          document.getElementsByClassName('images')[0].appendChild(image_div);
