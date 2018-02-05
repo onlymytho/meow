@@ -352,8 +352,20 @@ function addEventListener() {
     document.getElementById('more_meows').addEventListener("click", function(event) { event.stopImmediatePropagation(); call_images(9); }, false);
     document.getElementById('meow_button').addEventListener("click", function(event) { event.stopImmediatePropagation(); meow_counter(); meowbuttontweak.sound(); meowbuttontweak.red_count();}, false);
     document.getElementById('bg_layer').addEventListener("click", function(event) { event.stopImmediatePropagation(); viewer.close_viewer(); }, false);
+    document.getElementsByClassName('content')[0].addEventListener("click", function(event) { if (document.getElementsByClassName('content')[0] !== event.target) return; event.stopImmediatePropagation(); viewer.close_viewer(); }, false);
     document.getElementById('prev_button').addEventListener("click", function(event) { event.stopImmediatePropagation(); viewer.prev_image(); }, false);
     document.getElementById('next_button').addEventListener("click", function(event) { event.stopImmediatePropagation(); viewer.next_image(); }, false);
+    document.addEventListener('keydown', function(event) {
+        if (document.getElementById('viewer').classList.contains('on')) {
+            switch(event.keyCode) {
+                case 27: viewer.close_viewer(); break; // ESC, then close viewer.
+                case 37: viewer.prev_image(); break; // Left, then show previous image.
+                case 39: viewer.next_image(); break; // Right, then show next image.
+                // case space_key:  // Meow this image
+            }
+        }
+
+    }, false);
     document.getElementById('meow_paw_main').addEventListener("click", function(event) { event.stopImmediatePropagation(); console.log('paw');
     document.getElementsByClassName('credit')[0].classList.toggle('on') }, false);
 }
