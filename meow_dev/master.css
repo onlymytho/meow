@@ -219,7 +219,8 @@ body {
     top: 30px;
     left: 0; right: 0;
 }
-.initiation form input, button{
+.initiation form input,
+.initiation form button{
     display: block;
     position: relative;
     margin: 0 auto;
@@ -367,14 +368,17 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 760px;
+    cursor: zoom-out;
 }
 .viewer .viewer_item {
     display: inline-block;
-    vertical-align: top;
+    vertical-align: middle;
 }
 .viewer .viewer_item#image_div {
-    width: 500px;
-    height: 500px;
+    width: 520px;
+    height: 520px;
+    cursor: default;
 }
 .viewer .viewer_item#image_div img {
     width: 100%;
@@ -383,18 +387,17 @@ body {
 
 .viewer .viewer_item#prev button,
 .viewer .viewer_item#next button {
-    height: 500px;
-    width: 40px;
-    vertical-align: top;
-    background: rgba(0, 0, 0, 0.35);
+    height: 160px;
+    width: 100px;
+    background: none;
     border: none;
     transition: all ease 0.2s;
     cursor: pointer;
     outline: none;
 }
-.viewer .viewer_item#prev button:hover,
-.viewer .viewer_item#next button:hover {
-    background: rgba(0, 0, 0, 0.75);
+.viewer .viewer_item#prev button:active,
+.viewer .viewer_item#next button:active {
+    filter: brightness(0.6);
 }
 /*@media (max-width: 1024px) {
     .header .hello p, input {
