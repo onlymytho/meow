@@ -344,7 +344,7 @@ function addEventListener() {
     // referenced https://stackoverflow.com/a/29152483 to add stopImmediatePropagation()
     document.getElementById('upload').addEventListener("click", function(event) { event.stopImmediatePropagation(); open_survey('upload'); }, false);
     document.getElementById('feedback').addEventListener("click", function(event) { event.stopImmediatePropagation(); open_survey('feedback'); }, false);
-    document.getElementById('start_form').addEventListener("submit", function(e) { e.preventDefault(); }, false);
+    document.getElementById('start_form').addEventListener("submit", function(event) { event.preventDefault(); }, false);
     document.getElementById('start_button').addEventListener('click', function() {user_register(true); }, false);
     document.getElementById('register_email').addEventListener('input', function() {user_register(false); }, false);
     document.getElementById('register_pw').addEventListener('input', function() {user_register(false); }, false);
