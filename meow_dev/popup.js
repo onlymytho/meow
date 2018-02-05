@@ -39,55 +39,59 @@ var instagram_callback = function(err, instagram_data) {
     else {
         // console.log(instagram_data)
         after_temp = instagram_data.after
-        for (i=0; i<instagram_data.data.length; i++) {
+        if (instagram_data.data.length == 0) {
+            document.getElementsByClassName('more')[0].style.display = 'none';
+        } else {
+            for (i=0; i<instagram_data.data.length; i++) {
 
-            // create image elements
-            var image_div = document.createElement( 'div' );
-            image_div.className = 'image'
+                // create image elements
+                var image_div = document.createElement( 'div' );
+                image_div.className = 'image'
 
-            var img = document.createElement( 'img' );
-            image_div.appendChild( img );
-            img.className = 'imgs'
-            img.src = instagram_data.data[i].image_url
-            img.id = search_result.length
+                var img = document.createElement( 'img' );
+                image_div.appendChild( img );
+                img.className = 'imgs'
+                img.src = instagram_data.data[i].image_url
+                img.id = search_result.length
 
-            var label_div = document.createElement( 'div' );
-            image_div.appendChild( label_div );
-            label_div.className = 'label_div'
-            label_div.id = 'label_div' + search_result.length
-            var profile_img_div = document.createElement( 'div' );
-            profile_img_div.id = 'profile_img_div' + search_result.length
-            var profile_img = document.createElement( 'img' );
-            profile_img.id = 'profile_img' + search_result.length
-            var alias_a = document.createElement ('a' );
-            var alias = document.createElement( 'p' );
-            alias.id = 'alias' + search_result.length
-            label_div.appendChild(profile_img_div);
-            profile_img_div.appendChild(profile_img);
-            label_div.appendChild(alias_a);
-            alias_a.appendChild(alias);
-            alias_a.href = 'https://www.instagram.com/' + instagram_data.data[i].username
-            alias_a.target = '_blank'
-            profile_img_div.className = 'profile_img_div'
-            profile_img.className = 'profile_img'
-            alias.className = 'alias'
-            profile_img.src = instagram_data.data[i].profile_url
-            alias.innerText = instagram_data.data[i].username
-
-
-            document.getElementsByClassName('images')[0].appendChild(image_div);
-            image_div.classList.add('visible')
+                var label_div = document.createElement( 'div' );
+                image_div.appendChild( label_div );
+                label_div.className = 'label_div'
+                label_div.id = 'label_div' + search_result.length
+                var profile_img_div = document.createElement( 'div' );
+                profile_img_div.id = 'profile_img_div' + search_result.length
+                var profile_img = document.createElement( 'img' );
+                profile_img.id = 'profile_img' + search_result.length
+                var alias_a = document.createElement ('a' );
+                var alias = document.createElement( 'p' );
+                alias.id = 'alias' + search_result.length
+                label_div.appendChild(profile_img_div);
+                profile_img_div.appendChild(profile_img);
+                label_div.appendChild(alias_a);
+                alias_a.appendChild(alias);
+                alias_a.href = 'https://www.instagram.com/' + instagram_data.data[i].username
+                alias_a.target = '_blank'
+                profile_img_div.className = 'profile_img_div'
+                profile_img.className = 'profile_img'
+                alias.className = 'alias'
+                profile_img.src = instagram_data.data[i].profile_url
+                alias.innerText = instagram_data.data[i].username
 
 
-            // Put image items into search_result
-            search_result.push(instagram_data.data[i].image_url)
+                document.getElementsByClassName('images')[0].appendChild(image_div);
+                image_div.classList.add('visible')
 
-            // add actions
-            img.addEventListener('click', viewer.show_viewer, false);
-            img.addEventListener('mouseover', toggle_label, false)
-            img.addEventListener('mouseout', toggle_label, false)
-            label_div.addEventListener('mouseover', toggle_label, false)
-            label_div.addEventListener('mouseout', toggle_label, false)
+
+                // Put image items into search_result
+                search_result.push(instagram_data.data[i].image_url)
+
+                // add actions
+                img.addEventListener('click', viewer.show_viewer, false);
+                img.addEventListener('mouseover', toggle_label, false)
+                img.addEventListener('mouseout', toggle_label, false)
+                label_div.addEventListener('mouseover', toggle_label, false)
+                label_div.addEventListener('mouseout', toggle_label, false)
+            }
         }
     }
 }
