@@ -359,7 +359,7 @@ function addEventListener() {
 //  MAIN
 meow_button_count = 0
 display_initiation()
-call_images(6)
+call_images(9)
 get_username()
 adjust_input_width()
 get_currenttime()

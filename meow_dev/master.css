@@ -306,6 +306,7 @@ body {
 
 .more {
     text-align: center;
+    position: relative;
 }
 .more button {
     padding: 14px 28px;
@@ -321,6 +322,11 @@ body {
     transition: all ease 0.2s;
     overflow: hidden;
     margin-bottom: 80px;
+    position: absolute;
+
+    top: -150px;
+    left:0; right:0;
+    z-index: 50;
 }
 .more button:hover {
     background: #D18FFF;
@@ -329,6 +335,12 @@ body {
 .more form#paypal {
     outline: none;
 }
+.more .teaser {
+    position: absolute;
+    top: calc(-300px - 24px);
+    left: 0; right:0;
+}
+
 
 .viewer {
     position: fixed;
