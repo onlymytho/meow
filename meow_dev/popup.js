@@ -349,8 +349,8 @@ function addEventListener() {
     document.getElementById('register_email').addEventListener('input', function() {user_register(false); }, false);
     document.getElementById('register_pw').addEventListener('input', function() {user_register(false); }, false);
     document.getElementById('register_pw_confirmation').addEventListener('input', function() {user_register(false); }, false);
-    document.getElementById('more_meows').addEventListener("click", function(event) { event.stopImmediatePropagation(); call_images(9); }, false);
-    document.getElementById('meow_button').addEventListener("click", function(event) { event.stopImmediatePropagation(); meow_counter(); meowbuttontweak.sound(); meowbuttontweak.red_count();}, false);
+    document.getElementById('more_meows').addEventListener("click", function(event) { event.stopImmediatePropagation(); call_images(9); ga('send', 'event', 'more_button', 'click', localStorage.email)}, false);
+    document.getElementById('meow_button').addEventListener("click", function(event) { event.stopImmediatePropagation(); meow_counter(); meowbuttontweak.sound(); meowbuttontweak.red_count(); ga('send', 'event', 'meow_button', 'click', localStorage.email) }, false);
     document.getElementById('bg_layer').addEventListener("click", function(event) { event.stopImmediatePropagation(); viewer.close_viewer(); }, false);
     document.getElementsByClassName('content')[0].addEventListener("click", function(event) { if (document.getElementsByClassName('content')[0] !== event.target) return; event.stopImmediatePropagation(); viewer.close_viewer(); }, false);
     document.getElementById('prev_button').addEventListener("click", function(event) { event.stopImmediatePropagation(); viewer.prev_image(); }, false);
